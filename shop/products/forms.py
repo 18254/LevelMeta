@@ -13,4 +13,4 @@ class Addproducts(Form):
     image_2 = FileField('Image 2', validators=[FileRequired(), FileAllowed(['jpg','png','gif','jpeg','webp'])])
     image_3 = FileField('Image 3', validators=[FileRequired(), FileAllowed(['jpg','png','gif','jpeg','webp'])])
 
-#, 'Images only please'S
+#, 'Images only 
