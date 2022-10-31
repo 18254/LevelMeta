@@ -1,6 +1,12 @@
+from unicodedata import category
 from shop import db
 from datetime import datetime
+from sqlalchemy.orm import relationship, backref
 
+categorys = db.Table('categorys',
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'), primary_key=True),
+    db.Column('addproduct_id', db.Integer, db.ForeignKey('addproduct.id'), primary_key=True)
+)
 
 class Addproduct(db.Model):
     __seachbale__ = ['name','desc']
@@ -23,8 +29,12 @@ class Addproduct(db.Model):
     image_2 = db.Column(db.String(150), nullable=False, default='image2.jpg')
     image_3 = db.Column(db.String(150), nullable=False, default='image3.jpg')
 
+    categorys = db.relationship('Category', secondary=categorys, lazy='subquery',
+        backref=db.backref('addproduct', lazy=True))
+
     def __repr__(self):
         return '<Post %r>' % self.name
+
 
 
 class Brand(db.Model):
@@ -33,6 +43,8 @@ class Brand(db.Model):
 
     def __repr__(self):
         return '<Brand %r>' % self.name
+
+    
     
 
 class Category(db.Model):
@@ -41,6 +53,9 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Catgory %r>' % self.name
+
+
+
 
 
 db.create_all()

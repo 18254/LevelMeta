@@ -1,3 +1,4 @@
+from unicodedata import category
 from flask import render_template,session, request,redirect,url_for,flash,current_app
 from shop import app,db,photos, search
 from .models import Category,Brand,Addproduct
@@ -47,9 +48,20 @@ def get_brand(id):
 @app.route('/categories/<int:id>')
 def get_category(id):
     page = request.args.get('page',1, type=int)
-    get_cat = Category.query.filter_by(id=id).first_or_404()
-    get_cat_prod = Addproduct.query.filter_by(category=get_cat).paginate(page=page, per_page=8)
-    return render_template('products/index.html',get_cat_prod=get_cat_prod,brands=brands(),categories=categories(),get_cat=get_cat)
+    games = Addproduct.query.all()
+    newgames = []
+    for game in games:
+        for category in game.categorys:
+            if category.id==id:
+                newgames.append(game)
+
+    
+
+    print (newgames)
+    get_cat = Category.query.filter_by(id=id).first_or_404() 
+    #get_cat_prod = Addproduct.query.join(Category, Addproduct.categorys)
+    #get_cat_prods = query.filter_by(get_cat_prods=get_cat)
+    return render_template('products/index.html',get_cat_prod=newgames,brands=brands(),categories=categories(),get_cat=get_cat)
 
 
 @app.route('/addbrand',methods=['GET','POST'])

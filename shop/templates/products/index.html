@@ -2,6 +2,7 @@
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container">
+  {{newgames}}
     <div class="row">
         {% if brand %}
          {% for b in brand.items %}
@@ -61,7 +62,7 @@
     <!--================= END OF BARNDS FORLOOP ================-->
     <div class="row">
         {% elif get_cat_prod %}
-        {% for get_cat in get_cat_prod.items %}
+        {% for get_cat in get_cat_prod %}
         <div class="col-md-3 mt-4">
             <div class="card">
                 <img src="{{url_for('static', filename='images/' + get_cat.image_1)}}" class="card-img-top" alt="{{get_cat.name}}" height="200" width="200">
@@ -98,8 +99,8 @@
           {% if get_cat_prod.has_prev %}
             <a href="{{url_for('get_category',id=get_cat.id, page=get_cat_prod.prev_num)}}"class="btn btn-sm btn-outline-info">previous</a>
           {% endif %}
-          {% if get_cat_prod.total > 8 %}
-         {% for page_num in get_cat_prod.iter_pages(left_edge=1, right_edge=2, left_current=1,right_current=2) %}
+          
+
          {% if page_num %}
            {% if get_cat_prod.page == page_num %}
            <a href="{{url_for('get_category',id=get_cat.id, page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
@@ -109,8 +110,8 @@
           {% else %}
           ...
           {% endif %}
-         {% endfor %}
-         {% endif %}
+
+
          {% if get_cat_prod.has_next %}
          <a href="{{url_for('home', page=get_cat_prod.next_num)}}"class="btn btn-sm btn-outline-info">next</a>
        {% endif %}
@@ -119,6 +120,7 @@
         <!--========= END ELSE IF ===============-->
         <div class="row">
          {% else %}
+         {% if products %}
         {% for product in products.items %}
       <div class="col-md-3 mt-4">
         <div class="card">
@@ -148,10 +150,12 @@
         </div>
       </div>
         {% endfor %}
+        {% endif %}
       </div>
 
       <div class="row mt-4">
         <div class="col text-center">
+          {% if products %}
           {% if products.has_prev %}
             <a href="{{url_for('home', page=products.prev_num)}}"class="btn btn-sm btn-outline-info">previous</a>
           {% endif %}
@@ -170,6 +174,7 @@
          {% endif %}
          {% if products.has_next %}
          <a href="{{url_for('home', page=products.next_num)}}"class="btn btn-sm btn-outline-info">next</a>
+       {% endif %}
        {% endif %}
         </div>
       </div>
