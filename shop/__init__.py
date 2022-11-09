@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 import os
 
 from flask_msearch import Search
@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/images')
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
-patch_request_class(app)
+
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
