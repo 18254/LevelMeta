@@ -3,6 +3,7 @@ from shop import db , app
 from shop.products.models import Addproduct
 from shop.products.routes import brands, categories
 import json
+#importing db file to be used in the carts function 
 
 def MagerDicts(dict1,dict2):
     if isinstance(dict1, list) and isinstance(dict2,list):
