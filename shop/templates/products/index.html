@@ -106,6 +106,7 @@
            <a href="{{url_for('get_category',id=get_cat.id, page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
            {% else %}
            <a href="{{url_for('get_category',id=get_cat.id, page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+           <!-- allows the navbar drop down of catagorys -->
             {% endif %}
           {% else %}
           ...
