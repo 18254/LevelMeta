@@ -10,7 +10,9 @@ import pdfkit
 import stripe
 
 buplishable_key ='pk_test_MaILxTYQ15v5Uhd6NKI9wPdD00qdL0QZSl'
+#secret key to dycpyher customer password 
 stripe.api_key ='sk_test_9JlhVB6qwjcRdYzizjdwgIo0Dt00N55uxbWy'
+#depreciated payment method for experimental use 
 
 @app.route('/payment',methods=['POST'])
 def payment():
@@ -30,10 +32,12 @@ def payment():
     orders.status = 'Paid'
     db.session.commit()
     return redirect(url_for('thanks'))
+    #depreciated payment page for experimental use needs tuning 
 
 @app.route('/thanks')
 def thanks():
     return render_template('customer/thank.html')
+    #when order is placed 
 
 
 @app.route('/customer/register', methods=['GET','POST'])
@@ -41,11 +45,13 @@ def customer_register():
     form = CustomerRegisterForm()
     if form.validate_on_submit():
         hash_password = bcrypt.generate_password_hash(form.password.data)
+        #encrpyts user passsword to be stored in the database 
         register = Register(name=form.name.data, username=form.username.data, email=form.email.data,password=hash_password,country=form.country.data, city=form.city.data,contact=form.contact.data, address=form.address.data, zipcode=form.zipcode.data)
         db.session.add(register)
         flash(f'Welcome {form.name.data} Thank you for registering', 'success')
+        #visual promt for signing up rederects to user login  
         db.session.commit()
-        return redirect(url_for('login'))
+        return redirect(url_for('customerLogin'))
     return render_template('customer/register.html', form=form)
 
 
@@ -55,11 +61,13 @@ def customerLogin():
     if form.validate_on_submit():
         user = Register.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
+            #checks email to database password 
             login_user(user)
             flash('You are login now!', 'success')
             next = request.args.get('next')
             return redirect(next or url_for('home'))
         flash('Incorrect email and password','danger')
+        #visual message promts for the user 
         return redirect(url_for('customerLogin'))
             
     return render_template('customer/login.html', form=form)
@@ -69,6 +77,7 @@ def customerLogin():
 def customer_logout():
     logout_user()
     return redirect(url_for('home'))
+    #customer logout 
 
 def updateshoppingcart():
     for key, shopping in session['Shoppingcart'].items():
@@ -76,6 +85,7 @@ def updateshoppingcart():
         del shopping['image']
         del shopping['colors']
     return updateshoppingcart
+    #user abiltiy to update the shopping cart 
 
 @app.route('/getorder')
 @login_required
@@ -95,10 +105,11 @@ def get_order():
             print(e)
             flash('Some thing went wrong while get order', 'danger')
             return redirect(url_for('getCart'))
+            #when user clicks place order checks to see if loged in then removes all items from shopping cart and visual promts message promit are displayed 
         
 
 
-@app.route('/orders/<invoice>')
+"""@app.route('/orders/<invoice>')
 @login_required
 def orders(invoice):
     if current_user.is_authenticated:
@@ -111,17 +122,18 @@ def orders(invoice):
             discount = (product['discount']/100) * float(product['price'])
             subTotal += float(product['price']) * int(product['quantity'])
             subTotal -= discount
-            tax = ("%.2f" % (.06 * float(subTotal)))
-            grandTotal = ("%.2f" % (1.06 * float(subTotal)))
+            tax = ("%.2f" % (.15 * float(subTotal)))
+            grandTotal = ("%.2f" % (1.15 * float(subTotal)))
 
     else:
         return redirect(url_for('customerLogin'))
     return render_template('customer/order.html', invoice=invoice, tax=tax,subTotal=subTotal,grandTotal=grandTotal,customer=customer,orders=orders)
+"""
+#invoice ability for the user to get a pdf print out of what was ordered 
 
 
 
-
-@app.route('/get_pdf/<invoice>', methods=['POST'])
+"""@app.route('/get_pdf/<invoice>', methods=['POST'])
 @login_required
 def get_pdf(invoice):
     if current_user.is_authenticated:
@@ -135,8 +147,8 @@ def get_pdf(invoice):
                 discount = (product['discount']/100) * float(product['price'])
                 subTotal += float(product['price']) * int(product['quantity'])
                 subTotal -= discount
-                tax = ("%.2f" % (.06 * float(subTotal)))
-                grandTotal = float("%.2f" % (1.06 * subTotal))
+                tax = ("%.2f" % (.15 * float(subTotal)))
+                grandTotal = float("%.2f" % (1.15 * subTotal))
 
             rendered =  render_template('customer/pdf.html', invoice=invoice, tax=tax,grandTotal=grandTotal,customer=customer,orders=orders)
             pdf = pdfkit.from_string(rendered, False)
@@ -145,6 +157,6 @@ def get_pdf(invoice):
             response.headers['content-Disposition'] ='inline; filename='+invoice+'.pdf'
             return response
     return request(url_for('orders'))
-
-
+"""
+#invoice ability for the user to get a pdf print out of what was ordered 
 

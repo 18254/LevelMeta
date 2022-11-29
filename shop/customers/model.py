@@ -14,13 +14,13 @@ class Register(db.Model, UserMixin):
     email = db.Column(db.String(50), unique= True)
     password = db.Column(db.String(200), unique= False)
     country = db.Column(db.String(50), unique= False)
-    # state = db.Column(db.String(50), unique= False)
     city = db.Column(db.String(50), unique= False)
     contact = db.Column(db.String(50), unique= False)
     address = db.Column(db.String(50), unique= False)
     zipcode = db.Column(db.String(50), unique= False)
     profile = db.Column(db.String(200), unique= False , default='profile.jpg')
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    #store user information in database under respected names 
 
     def __repr__(self):
         return '<Register %r>' % self.name
@@ -46,6 +46,7 @@ class CustomerOrder(db.Model):
     customer_id = db.Column(db.Integer, unique=False, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     orders = db.Column(JsonEcodedDict)
+    #customer order stored under each user when order button is used 
 
     def __repr__(self):
         return'<CustomerOrder %r>' % self.invoice
@@ -53,6 +54,7 @@ class CustomerOrder(db.Model):
 
 
 db.create_all()
+#creating the table within the database 
 
 
 
