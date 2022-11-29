@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship, backref
 categorys = db.Table('categorys',
     db.Column('category_id', db.Integer, db.ForeignKey('category.id'), primary_key=True),
     db.Column('addproduct_id', db.Integer, db.ForeignKey('addproduct.id'), primary_key=True)
-)
+)#many to many relationship joining table 
 
 class Addproduct(db.Model):
     __seachbale__ = ['name','desc']
@@ -31,15 +31,18 @@ class Addproduct(db.Model):
 
     categorys = db.relationship('Category', secondary=categorys, lazy='subquery',
         backref=db.backref('addproduct', lazy=True))
+        #many to many joining table 
 
     def __repr__(self):
         return '<Post %r>' % self.name
+        #admin entries images and other inforation added to the database 
 
 
 
 class Brand(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True, nullable=False)
+    #brands to choose from to add to products 
 
     def __repr__(self):
         return '<Brand %r>' % self.name
@@ -50,7 +53,7 @@ class Brand(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True, nullable=False)
-
+#categories to choose from to add to products 
     def __repr__(self):
         return '<Catgory %r>' % self.name
 
@@ -59,3 +62,4 @@ class Category(db.Model):
 
 
 db.create_all()
+#adds table to the database
