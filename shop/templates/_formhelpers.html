@@ -4,7 +4,7 @@
   {% if field.errors %}
     <ul class=errors>
     {% for error in field.errors %}
-      <li class="text-danger">{{ error }}</li>
+      <li class="text-danger">{{ error }}</li> <!-- message pop up when requirements are not meet in form  -->
     {% endfor %}
     </ul>
   {% endif %}

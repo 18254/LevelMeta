@@ -16,7 +16,7 @@
                 <th>Discount</th>
                 <th>Subtotal</th>
                 <th>Update</th>
-                <th>Delete</th>
+                <th>Delete</th><!-- user clickable buttons -->
             </thead>
             <tbody>
                 {% for key, product in session['Shoppingcart'].items() %}
@@ -29,7 +29,7 @@
                     <td>
                         {% set colors = product.colors.split(',') %}
                         <label for="colors">Colors: </label>
-                        <select name="color" id="color">
+                        <select name="color" id="color"><!-- dissplays current product colour meaning edition standard, deluxe edition-->
                             <option value="{{product.color}}" style="display: none;">{{product.color|capitalize}}</option>
                             {% for color in colors %}
                             {% set col = color.split(':') %}
@@ -44,7 +44,7 @@
                     <td>{{product.discount}} % &nbsp; &nbsp; is {{"%.2f"|format(discount)}}</td>
                     {% else %}
                     <td></td>
-                    {% endif %}
+                    {% endif %} <!-- current sub-total including tax  -->
                     {% set subtotal = product.quantity|int * product.price|float  %}
                     <td>${{"%.2f"|format(subtotal - discount|round(1,'floor')) }}</td>
                     <td><button type="submit" class="btn btn-sm btn-info">Update</button> </td>
@@ -58,7 +58,7 @@
            <tr>
                <td> <a href="{{url_for('get_order')}}" class="btn btn-success"> Order now </a> </td>
                <td width="35%"></td>
-               <td> <h5>Tax: ${{tax}}</h5></td>
+               <td> <h5>Tax: ${{tax}}</h5></td><!-- current tax total -->
                <td> <h5>Grand total: ${{grandtotal}}</h3> </td>
                 <td> <a href="{{url_for('clearcart')}}" class="btn btn-danger btn-sm float-right mr-4"> Clear cart</a> </td>
            </tr>

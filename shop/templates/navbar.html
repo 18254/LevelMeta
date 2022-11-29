@@ -3,15 +3,15 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">
           <img src="/static/images/ace.png" width="30" height="30" class="d-inline-block align-top">
-          LevelMeta
+          LevelMeta<!--name and image in the navbar with height and width -->
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
+            <li class="nav-item active"><!-- navbar drop down for brand-->
+              <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a><!-- returns user to homepage -->
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +30,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% for category in categories %}
-                  <a class="dropdown-item" href="{{url_for('get_category',id=category.id)}}">{{category.name}}</a>
+                  <a class="dropdown-item" href="{{url_for('get_category',id=category.id)}}">{{category.name}}</a><!-- navabr dropdwon for categorys-->
                   {% endfor %}
                 </div>
               </li>
@@ -39,14 +39,14 @@
               <a href="{{url_for('customer_logout')}}" class="nav-link">{{current_user.name}}</a>
             </li>
              <li class="nav-item">
-               <a href="{{url_for('customer_logout')}}" class="nav-link"> Logout</a>
+               <a href="{{url_for('customer_logout')}}" class="nav-link"> Logout</a><!-- if user is loged in displays navbar with logout-->
              </li>
              {% else %}
              <li class="nav-item">
               <a href="{{url_for('customer_register')}}" class="nav-link">Register</a>
             </li>
              <li class="nav-item">
-              <a href="{{url_for('customerLogin')}}" class="nav-link">Login</a>
+              <a href="{{url_for('customerLogin')}}" class="nav-link">Login</a><!-- if user is not loged in, displays navbar with login-->
             </li>
             {% endif %}
               <li class="nav-item">

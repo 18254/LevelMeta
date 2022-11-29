@@ -13,7 +13,7 @@
               <a class="nav-link" href="{{url_for('admin')}}">product <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('brands')}}">brand</a>
+              <a class="nav-link" href="{{url_for('brands')}}">brand</a><!-- admin navbar diffrent from user navbar -->
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('categories')}}">catgory</a>
@@ -25,7 +25,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="{{url_for('addproduct')}}">Add product</a>
                 <a class="dropdown-item" href="{{url_for('addbrand')}}">add brand</a>
-                <a class="dropdown-item" href="{{url_for('addcat')}}">add category</a>
+                <a class="dropdown-item" href="{{url_for('addcat')}}">add category</a><!-- navbar drop down functions -->
               </div>
             </li>
           </ul>
@@ -47,7 +47,7 @@
                  <form action="" method="post">
                      {% if updatebrand %}
                      <input type="text" name="brand" class="form-control" value="{{updatebrand.name}}">
-                     <input type="submit" value="update brand" class="btn btn-info mt-3">
+                     <input type="submit" value="update brand" class="btn btn-info mt-3"><!-- adds new brand to the database -->
                      {% else %}
                      <input type="text" name="brand" class="form-control">
                      <input type="submit" value="Add a brand" class="btn btn-info mt-3">
@@ -60,7 +60,7 @@
                 <div class="text-center  p-2 h3 mb-3">{% if updatecat %}Upade {% else %}Add a {% endif %}category</div>     
                 <form method=post>
                 <div>
-                 <form action="" method="post">
+                 <form action="" method="post"><!-- adds new category to the database -->
                      {% if updatecat %}
                      <input type="text" name="category" class="form-control" value="{{updatecat.name}}">
                      <input type="submit" value="Update category" class="btn btn-info mt-3">

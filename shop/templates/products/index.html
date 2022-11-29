@@ -14,7 +14,7 @@
                     <h5 style="text-shadow: 1px 2px 2px #000; color: #f00; transform: rotate(-15deg); position: absolute; top: 23%; left: 25%; font-weight: 600;"> Discount {{b.discount}}</h5>
                     {% endif %}
                   <h5 class="text-center">{{b.name}}</h5>
-                  <p class="text-center">Price ${{b.price}}</p>
+                  <p class="text-center">Price ${{b.price}}</p><!-- product placment if brand search feature is used -->
                 </div>
                 <div class="card-footer">
                     <a href="{{url_for('single_page',id=b.id)}}" class="float-left btn btn-sm btn-primary">Details</a>
@@ -22,7 +22,7 @@
                       <input type="hidden" name="product_id" value="{{b.id}}">
                       <button type="submit" class="btn btn-sm btn-warning float-right">Add to Cart</button>
                       <input type="hidden" name="quantity" value="1" min="1" max="20">
-                      {% set colors = b.colors.split(',') %}
+                      {% set colors = b.colors.split(',') %}<!-- product placement -->
                       <select name="colors" id="colors" style="visibility: hidden;">
                           {% for color in colors %}
                           {% set col = color.split(':') %}
@@ -47,7 +47,7 @@
          {% if brand.page == page_num %}
          <a href="{{url_for('get_brand',id=get_brand.id, page=page_num)}}" class="btn btn-sm btn-info">{{page_num}}</a>
          {% else %}
-         <a href="{{url_for('get_brand',id=get_brand.id, page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+         <a href="{{url_for('get_brand',id=get_brand.id, page=page_num)}}" class="btn btn-sm btn-outline-info">{{page_num}}</a><!-- navbar drop downs category and brand drop down -->
           {% endif %}
         {% else %}
         ...
@@ -71,7 +71,7 @@
                     <h5 style="text-shadow: 1px 2px 2px #000; color: #f00; transform: rotate(-15deg); position: absolute; top: 23%; left: 25%; font-weight: 600;"> Discount {{get_cat.discount}}</h5>
                     {% endif %}
                   <h5 class="text-center">{{get_cat.name}}</h5>
-                  <p class="text-center">Price ${{get_cat.price}}</p>
+                  <p class="text-center">Price ${{get_cat.price}}</p><!-- product placement for categorys search feature is used -->
                 </div>
                 <div class="card-footer">
                     <a href="{{url_for('single_page', id=get_cat.id)}}" class="float-left btn btn-sm btn-primary">Details</a>
@@ -131,7 +131,7 @@
                 <h5 style="text-shadow: 1px 2px 2px #000; color: #f00; transform: rotate(-15deg); position: absolute; top: 23%; left: 25%; font-weight: 600;"> Discount {{product.discount}}</h5>
                 {% endif %}
               <h5 class="text-center">{{product.name}}</h5>
-              <p class="text-center">Price ${{product.price}}</p>
+              <p class="text-center">Price ${{product.price}}</p><!-- home page products placement   -->
             </div>
             <div class="card-footer">
                 <a href="{{url_for('single_page',id=product.id)}}" class="float-left btn btn-sm btn-primary">Details</a>
@@ -173,7 +173,7 @@
           {% endif %}
          {% endfor %}
          {% endif %}
-         {% if products.has_next %}
+         {% if products.has_next %} <!-- if products are more then 12 createsa secound page wit a next button at the bottom-->
          <a href="{{url_for('home', page=products.next_num)}}"class="btn btn-sm btn-outline-info">next</a>
        {% endif %}
        {% endif %}
