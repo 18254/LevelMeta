@@ -7,16 +7,17 @@ import os
 from flask_msearch import Search
 from flask_login import LoginManager
 from flask_migrate import Migrate
+#intailizes when run.py is used 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SECRET_KEY']='hfouewhfoiwefoquw'
+app.config['SECRET_KEY']='hfouewhfoiwefoquw'#encrypt user password to the database 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/images')
 photos = UploadSet('photos', IMAGES)
-configure_uploads(app, photos)
+configure_uploads(app, photos)#if images are uploaded 
 
 
 db = SQLAlchemy(app)
@@ -30,6 +31,7 @@ with app.app_context():
         migrate.init_app(app, db, render_as_batch=True)
     else:
         migrate.init_app(app, db)
+        #migrate for shopping cart function
 
 
 login_manager = LoginManager()
@@ -43,3 +45,4 @@ from shop.products import routes
 from shop.admin import routes
 from shop.carts import carts
 from shop.customers import routes
+#models used 
